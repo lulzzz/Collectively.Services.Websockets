@@ -5,9 +5,7 @@ using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 
-using WebSocketManager.Common;
-
-namespace WebSocketManager
+namespace Collectively.Services.Websockets.Manager
 {
     public class WebSocketConnectionManager
     {

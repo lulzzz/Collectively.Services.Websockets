@@ -3,6 +3,7 @@ using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Collectively.Services.Websockets.Hubs;
+using Collectively.Services.Websockets.Manager;
 using Collectively.Services.Websockets.Services;
 using Coolector.Common.Commands;
 using Coolector.Common.Events;
@@ -20,7 +21,6 @@ using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using RawRabbit.Configuration;
-using WebSocketManager;
 
 namespace Collectively.Services.Websockets
 {

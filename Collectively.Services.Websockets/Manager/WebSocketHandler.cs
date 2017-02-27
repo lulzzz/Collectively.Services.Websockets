@@ -1,14 +1,14 @@
 using System;
 using System.Net.WebSockets;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Reflection;
+using Collectively.Services.Websockets.Manager.Common;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using WebSocketManager.Common;
 
-namespace WebSocketManager
+namespace Collectively.Services.Websockets.Manager
 {
     public abstract class WebSocketHandler
     {

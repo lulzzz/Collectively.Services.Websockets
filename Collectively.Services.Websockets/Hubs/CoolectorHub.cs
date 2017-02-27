@@ -1,8 +1,8 @@
 ﻿using System.Net.WebSockets;
 using System.Threading.Tasks;
+using Collectively.Services.Websockets.Manager;
 using Coolector.Common.Security;
 using NLog;
-using WebSocketManager;
 
 namespace Collectively.Services.Websockets.Hubs
 {
