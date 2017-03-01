@@ -1,5 +1,5 @@
 //LockBoxClient.js
-var http = require('node-fetch');
+var fetch = require('node-fetch');
 
 module.exports = function() {
   this.encryptionKey = process.env.LOCKBOX_ENCRYPTION_KEY;
