@@ -8,13 +8,18 @@ var OperationMessageHandler = require('./lib/OperationMessageHandler.js');
 var RemarkMessageHandler = require('./lib/RemarkMessageHandler.js');
 
 console.log('Starting Collectively Websockets Service...');
+var env = process.env.NODE_ENV || 'local';
+if(env === 'production' || env === 'development') {
+  //TODO lockbox 
+} else {
+  var configuration = config.get('config');
+}
 
-var port = process.env.PORT || 17000;
+var port = configuration.port || 15000;
+var rabbitMqConfig = configuration.rabbitMq;
 var app = express();
 var server = http.createServer(app);
 var io = socketio(server);
-var rabbitMqConfig = config.get('rabbitMq');
-console.log(rabbitMqConfig);
 
 var operationMessageHandler = new OperationMessageHandler(io);
 var remarkMessageHandler = new RemarkMessageHandler(io);
@@ -68,13 +73,5 @@ server.listen(port, () => {
 });
 
 app.get('/', (req, res) => {
-  let response = `Collectively Websocket Service</br>`
-    + `Connection status ${app.connectionStatus}</br>`
-    + `Exchange status ${app.exchangeStatus}</br>`
-    + `Queue status ${app.queueStatus}</br>`;
-  res.send(response);
+  res.send('Collectively Websocket Service');
 });
-
-// app.listen(3000, function () {
-//   console.log('Example app listening on port 3000!');
-// });
