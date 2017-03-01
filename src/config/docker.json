@@ -1,0 +1,40 @@
+{
+  "config": {
+    "port": 15000,
+    "rabbitMq": {
+      "options" : {
+        "host": "localhost",
+        "port": 5672,
+        "login": "guest",
+        "password": "guest",
+        "connectionTimeout": 10000,
+        "vhost": "/",
+        "requestTimeout": "00:00:10"
+      },
+
+      "implOptions" :{
+        "defaultExchangeName": "", 
+        "reconnect": true, 
+        "reconnectBackoffStrategy": "linear", 
+        "reconnectExponentialLimit": 120000, 
+        "reconnectBackoffTime": 1000
+      },
+      "exchange": {
+        "type": "topic",
+        "passive": false,
+        "durable": true,
+        "autoDelete": false,
+        "noDeclare": false,
+        "confirm": false
+      },
+      "queue": {
+        "passive": false,
+        "durable": true,
+        "exclusive": false,
+        "autoDelete": false,
+        "noDeclare": false,
+        "closeChannelOnUnsubscribe": false
+      }    
+    }
+  }
+}
