@@ -2,6 +2,7 @@ var express = require('express');
 var http = require('http');
 var socketio = require('socket.io');
 var amqp = require('amqp');
+var config = require('config');
 var RabbitMqConnection = require('./lib/RabbitMqConnection.js');
 var OperationMessageHandler = require('./lib/OperationMessageHandler.js');
 var RemarkMessageHandler = require('./lib/RemarkMessageHandler.js');
@@ -12,10 +13,12 @@ var port = process.env.PORT || 17000;
 var app = express();
 var server = http.createServer(app);
 var io = socketio(server);
+var rabbitMqConfig = config.get('rabbitMq');
+console.log(rabbitMqConfig);
 
 var operationMessageHandler = new OperationMessageHandler(io);
 var remarkMessageHandler = new RemarkMessageHandler(io);
-var rmqConnection = new RabbitMqConnection();
+var rmqConnection = new RabbitMqConnection(rabbitMqConfig);
 
 rmqConnection.subscribe('coolector.services.operations.shared.events',
   'operationupdated.#',
