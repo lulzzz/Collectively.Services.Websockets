@@ -1,0 +1,20 @@
+{
+  "name": "collectively-services-websockets",
+  "version": "1.0.0",
+  "description": "Socket.io server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Noordwind",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/noordwind/Collectively.Services.Websockets.git"
+  },
+  "dependencies": {
+    "amqp": "^0.2.6",
+    "express": "^4.14.1",
+    "socket.io": "^1.7.3"
+  }
+}
