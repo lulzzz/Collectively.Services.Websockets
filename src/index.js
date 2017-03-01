@@ -9,7 +9,8 @@ if(env === 'production' || env === 'development') {
   client.getConfig()
     .then((configuration) => {
       console.log('Configuration fetched from LockBox');
-      let service = new WebSocketService(configuration);
+      console.log(configuration);
+      let service = new WebSocketService(configuration.config);
       service.run();
     })
 } else {

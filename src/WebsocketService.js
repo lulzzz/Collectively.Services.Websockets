@@ -3,19 +3,19 @@ var express = require('express');
 var http = require('http');
 var socketio = require('socket.io');
 var amqp = require('amqp');
+var RabbitMqConnection = require('./lib/RabbitMqConnection.js');
+var OperationMessageHandler = require('./lib/OperationMessageHandler.js');
+var RemarkMessageHandler = require('./lib/RemarkMessageHandler.js');
 
 
 module.exports = function(configuration) {
   this.configuration = configuration;
+  var port = this.configuration.port || 15000;
+  var rabbitMqConfig = this.configuration.rabbitMq;
 
   this.run = () => {
     console.log('Starting Collectively Websockets Service...');
-    var RabbitMqConnection = require('./lib/RabbitMqConnection.js');
-    var OperationMessageHandler = require('./lib/OperationMessageHandler.js');
-    var RemarkMessageHandler = require('./lib/RemarkMessageHandler.js');
-
-    var port = this.configuration.port || 15000;
-    var rabbitMqConfig = this.configuration.rabbitMq;
+    console.log(`RabbitMqConfig ${JSON.stringify(rabbitMqConfig)}`);
     var app = express();
     var server = http.createServer(app);
     var io = socketio(server);
