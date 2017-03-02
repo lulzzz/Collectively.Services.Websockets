@@ -3,9 +3,9 @@ var express = require('express');
 var http = require('http');
 var socketio = require('socket.io');
 var amqp = require('amqp');
-var RabbitMqConnection = require('./lib/RabbitMqConnection.js');
-var OperationMessageHandler = require('./lib/OperationMessageHandler.js');
-var RemarkMessageHandler = require('./lib/RemarkMessageHandler.js');
+var RabbitMqConnection = require('./RabbitMqConnection.js');
+var OperationMessageHandler = require('./OperationMessageHandler.js');
+var RemarkMessageHandler = require('./RemarkMessageHandler.js');
 
 
 module.exports = function(configuration) {
