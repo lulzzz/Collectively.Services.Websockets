@@ -15,7 +15,6 @@ module.exports = function(configuration) {
 
   this.run = () => {
     console.log('Starting Collectively Websockets Service...');
-    console.log(`RabbitMqConfig ${JSON.stringify(rabbitMqConfig)}`);
     var app = express();
     var server = http.createServer(app);
     var io = socketio(server);
