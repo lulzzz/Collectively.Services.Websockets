@@ -23,35 +23,35 @@ module.exports = function(configuration) {
     var remarkMessageHandler = new RemarkMessageHandler(io);
     var rmqConnection = new RabbitMqConnection(rabbitMqConfig);
 
-    rmqConnection.subscribe('coolector.services.operations.shared.events',
+    rmqConnection.subscribe('collectively.messages.events.operations',
       'operationupdated.#',
       operationMessageHandler.publishOperationUpdated);
       
-    rmqConnection.subscribe('coolector.services.remarks.shared.events',
+    rmqConnection.subscribe('collectively.messages.events.remarks',
       'remarkcreated.#',
       remarkMessageHandler.publishRemarkCreated);
 
-    rmqConnection.subscribe('coolector.services.remarks.shared.events',
+    rmqConnection.subscribe('collectively.messages.events.remarks',
       'remarkresolved.#',
       remarkMessageHandler.publishRemarkResolved);
 
-    rmqConnection.subscribe('coolector.services.remarks.shared.events',
+    rmqConnection.subscribe('collectively.messages.events.remarks',
       'remarkdeleted.#',
       remarkMessageHandler.publishRemarkDeleted);
 
-    rmqConnection.subscribe('coolector.services.remarks.shared.events',
+    rmqConnection.subscribe('collectively.messages.events.remarks',
       'photostoremarkadded.#',
       remarkMessageHandler.publishPhotosToRemarkAdded);
 
-    rmqConnection.subscribe('coolector.services.remarks.shared.events',
+    rmqConnection.subscribe('collectively.messages.events.remarks',
       'photosfromremarkremoved.#',
       remarkMessageHandler.publishPhotosFromRemarkRemoved);
 
-    rmqConnection.subscribe('coolector.services.remarks.shared.events',
+    rmqConnection.subscribe('collectively.messages.events.remarks',
       'remarkvotesubmitted.#',
       remarkMessageHandler.publishRemarkVoteSubmitted);
 
-    rmqConnection.subscribe('coolector.services.remarks.shared.events',
+    rmqConnection.subscribe('collectively.messages.events.remarks',
       'remarkvotedeleted.#',
       remarkMessageHandler.publishRemarkVoteDeleted);
 
