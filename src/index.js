@@ -1,5 +1,5 @@
 var config = require('config');
-var WebSocketService = require('./WebsocketService.js');
+var WebSocketService = require('./lib/WebsocketService.js');
 
 console.log('Fetching configuration data');
 var env = process.env.NODE_ENV || 'local';
