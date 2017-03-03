@@ -3,6 +3,7 @@ var WebSocketService = require('./lib/WebsocketService.js');
 
 console.log('Fetching configuration data');
 var env = process.env.NODE_ENV || 'local';
+console.log(`Environment ${env}`);
 if(env === 'production' || env === 'development') {
   let LockboxClient = require('./lib/LockBoxClient.js');
   let client = new LockboxClient();

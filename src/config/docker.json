@@ -3,7 +3,7 @@
     "port": 15000,
     "rabbitMq": {
       "options" : {
-        "host": "localhost",
+        "host": "rabbitmq",
         "port": 5672,
         "login": "guest",
         "password": "guest",
