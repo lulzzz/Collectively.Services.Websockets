@@ -19,7 +19,7 @@ module.exports = function(configuration) {
     var io = socketio(server);
 
     var operationMessageHandler = new OperationMessageHandler(io);
-    var remarkMessageHandler = new RemarkMessageHandler(io);
+    var remarkMessageHandler = new RemarkMessageHandler(io, this.configuration.services);
     var rmqConnection = new RabbitMqConnection(rabbitMqConfig);
 
     rmqConnection.subscribe('collectively.messages.events.operations',

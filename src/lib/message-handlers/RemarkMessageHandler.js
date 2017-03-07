@@ -1,79 +1,108 @@
 //RemarkMessageHandler.js
+var ServiceClient = require('../ServiceClient.js');
 
-module.exports = function(io) {
+module.exports = function(io, configuration) {
   this.io = io;
+  let serviceConfiguration = configuration.find((x) => x.title === 'remarks-service');
+  this.serviceClient = new ServiceClient(serviceConfiguration);
 
-  this.publishRemarkCreated = (event) => {
-    let message = {
-      id: event.remarkId,
-      author: event.username,
-      category: event.category.name,
-      location: {
-        address: event.location.address,
-        coordinates: [ event.location.longitude, event.location.latitude],
-        type: "Point"
-      },
-      description: event.description,
-      createdAt: event.createdAt,
-      resolved: false
+  this.publishRemarkCreated = async (event) => {
+    console.log('Received RemarkCreated event');
+    let remark = await fetchRemark(event.resource);
+    if (!remark) {
+      return;
     }
+
+    let message = {
+      id: remark.id,
+      author: remark.author.name,
+      category: remark.category.name,
+      location: remark.location,
+      description: remark.description,
+      createdAt: remark.createdAt,
+      resolved: remark.resolved
+    };
     console.log('Publishing remark_created message');
-    this.io.sockets.emit('remark_created', message);
+    await this.io.sockets.emit('remark_created', message);
   };
 
-  this.publishRemarkResolved = (event) => {
+  this.publishRemarkResolved = async (event) => {
+    console.log('Received RemarkResolved event');
+    let remark = await fetchRemark(event.resource);
+    if (!remark) {
+      return;
+    }
     let message = {
-      remarkId: event.remarkId,
-      resolverId: event.state.userId,
-      resolver: event.state.username,
-      resolvedAt: event.state.createdAt
+      remarkId: remark.id,
+      resolverId: remark.state.user.userId,
+      resolver: remark.state.user.name,
+      resolvedAt: remark.state.createdAt
     };
     console.log('Publishing remark_resolved message');
-    this.io.sockets.emit('remark_resolved', message);
+    await this.io.sockets.emit('remark_resolved', message);
   };
 
-  this.publishRemarDeleted = (event) => {
+  this.publishRemarkDeleted = async (event) => {
+    console.log('Received RemarkDeleted event');
     let message = {
       remarkId: event.id
     };
     console.log('Publishing remark_deleted message');
-    this.io.sockets.emit('remark_deleted', message);
+    await this.io.sockets.emit('remark_deleted', message);
   }
 
-  this.publishPhotosToRemarkAdded = (event) => {
-    let photoIds = event.photos.$values
+  this.publishPhotosToRemarkAdded = async (event) => {
+  console.log('Received PhotosToRemarkAdded event');
+    let remark = await fetchRemark(event.resource);
+    if (!remark) {
+      return;
+    }
+
+    let photoIds = remark.photos
       .map((x) => x.groupId)
       .filter((x, i, a) => a.indexOf(x) == i);
     let photosCount = photoIds.length;
-    let newPhotos = event.photos.$values
-      .slice(Math.max(event.photos.$values.length - 3, 0));
+    let newPhotos = remark.photos
+      .slice(Math.max(remark.photos.length - 3, 0));
 
     let message = {
-      remarkId: event.remarkId,
+      remarkId: remark.id,
       photosCount: photosCount,
       newPhotos: newPhotos
     };
     console.log('Publishing photos_to_remark_added message');
-    this.io.sockets.emit('photos_to_remark_added', message);
+    await this.io.sockets.emit('photos_to_remark_added', message);
   };
 
   this.publishPhotosFromRemarkRemoved = (event) => {
-    let message = {
-      remarkId: event.remarkId,
-      groupIds: event.groupIds.$values,
-      photos: event.photos.$values
-    };
     console.log('Publishing photos_from_remark_removed message');
-    this.io.sockets.emit('photos_from_remark_removed', message);
+    console.log(JSON.stringify(event));
+    // let message = {
+    //   remarkId: event.remarkId,
+    //   groupIds: event.groupIds.$values,
+    //   photos: event.photos.$values
+    // };
+    // this.io.sockets.emit('photos_from_remark_removed', message);
   };
 
   this.publishRemarkVoteSubmitted = (event) => {
     console.log('Publishing remark_vote_submitted message');
-    this.io.sockets.emit('remark_vote_submitted', event);
+    console.log(JSON.stringify(event));
+    // this.io.sockets.emit('remark_vote_submitted', event);
   };
 
   this.publishRemarkVoteDeleted = (event) => {
     console.log('Publishing remark_vote_deleted message');
-    this.io.sockets.emit('remark_vote_deleted', event);
+    console.log(JSON.stringify(event));
+    // this.io.sockets.emit('remark_vote_deleted', event);
   };
+
+  let fetchRemark = async (resource) => {
+    let remark = await this.serviceClient.getAsync(resource.service, resource.endpoint);
+    if (!remark) {
+      console.error(`Cannot fetch remark from ${resource.service}/${resource.endpoint}`);
+      return;
+    }
+    return remark;
+  }
 }

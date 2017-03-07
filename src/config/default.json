@@ -42,7 +42,7 @@
     },
     "service": {
       "title": "websockets-service",
-      "name": "",
+      "name": "localhost:15000",
       "username": "user",
       "password": "secret"
     },
