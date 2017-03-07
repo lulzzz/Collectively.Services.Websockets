@@ -4,9 +4,8 @@ var http = require('http');
 var socketio = require('socket.io');
 var amqp = require('amqp');
 var RabbitMqConnection = require('./RabbitMqConnection.js');
-var OperationMessageHandler = require('./OperationMessageHandler.js');
-var RemarkMessageHandler = require('./RemarkMessageHandler.js');
-
+var OperationMessageHandler = require('./message-handlers/OperationMessageHandler.js');
+var RemarkMessageHandler = require('./message-handlers/RemarkMessageHandler.js');
 
 module.exports = function(configuration) {
   this.configuration = configuration;
