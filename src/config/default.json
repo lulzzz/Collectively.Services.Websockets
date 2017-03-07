@@ -1,6 +1,10 @@
 {
   "config": {
     "port": 15000,
+    "jwtToken": {
+      "secretKey": "bYTJPUuMbbGxG6PTebXjph2WVL9ewsY375AVnRd33jFYdnXzyd",
+      "expiryDays": 1000000
+    },
     "rabbitMq": {
       "options" : {
         "host": "localhost",
@@ -35,6 +39,20 @@
         "noDeclare": false,
         "closeChannelOnUnsubscribe": false
       }    
-    }
+    },
+    "service": {
+      "title": "websockets-service",
+      "name": "",
+      "username": "user",
+      "password": "secret"
+    },
+    "services": [
+      {
+        "title": "remarks-service",
+        "name": "localhost:10002",
+        "username": "user",
+        "password": "secret"
+      }
+    ]
   }
 }

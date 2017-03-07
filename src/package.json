@@ -4,7 +4,7 @@
   "description": "Socket.io server",
   "main": "index.js",
   "scripts": {
-    "start" : "node index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Noordwind",
@@ -17,6 +17,8 @@
     "amqp": "^0.2.6",
     "config": "^1.25.1",
     "express": "^4.14.1",
+    "jwt-simple": "^0.5.1",
+    "moment": "^2.17.1",
     "node-fetch": "^1.6.3",
     "socket.io": "^1.7.3"
   }
