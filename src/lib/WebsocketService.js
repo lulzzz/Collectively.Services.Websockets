@@ -42,18 +42,6 @@ module.exports = function(configuration) {
       'photostoremarkadded.#',
       remarkMessageHandler.publishPhotosToRemarkAdded);
 
-    rmqConnection.subscribe('collectively.messages.events.remarks',
-      'photosfromremarkremoved.#',
-      remarkMessageHandler.publishPhotosFromRemarkRemoved);
-
-    rmqConnection.subscribe('collectively.messages.events.remarks',
-      'remarkvotesubmitted.#',
-      remarkMessageHandler.publishRemarkVoteSubmitted);
-
-    rmqConnection.subscribe('collectively.messages.events.remarks',
-      'remarkvotedeleted.#',
-      remarkMessageHandler.publishRemarkVoteDeleted);
-
     rmqConnection.connect();
 
     function onSocketConnection(socket) {
