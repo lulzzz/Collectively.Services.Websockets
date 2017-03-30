@@ -3,6 +3,7 @@ var express = require('express');
 var http = require('http');
 var socketio = require('socket.io');
 var amqp = require('amqp');
+var JwtTokenHandler = require('./security/JwtTokenHandler.js');
 var RabbitMqConnection = require('./RabbitMqConnection.js');
 var OperationMessageHandler = require('./message-handlers/OperationMessageHandler.js');
 var RemarkMessageHandler = require('./message-handlers/RemarkMessageHandler.js');
@@ -18,6 +19,7 @@ module.exports = function(configuration) {
     var server = http.createServer(app);
     var io = socketio(server);
 
+    var jwtTokenHandler = new JwtTokenHandler(this.configuration.jwtToken);
     var operationMessageHandler = new OperationMessageHandler(io);
     var remarkMessageHandler = new RemarkMessageHandler(io, this.configuration.services);
     var rmqConnection = new RabbitMqConnection(rabbitMqConfig);
@@ -46,8 +48,20 @@ module.exports = function(configuration) {
 
     function onSocketConnection(socket) {
       console.log('connected');
-      socket.on('initialize', (data) => {
-        console.log('initialized');
+      socket.on('authenticate', (data) => {
+        let token = jwtTokenHandler.decode(data.token);
+        let jwtToken = {
+          sub: token.Sub,
+          exp: token.Exp
+        };
+        if (jwtTokenHandler.isValid(jwtToken)) {
+          socket.join(jwtToken.sub);
+          socket.emit('authenticated');
+          console.log(`authenticated, userId: ${jwtToken.sub}`);
+        } else {
+          socket.emit('authentication_failed');
+          console.log('authentication failed');
+        }
       });
     }
 

@@ -2,8 +2,8 @@
 var jwt = require('jwt-simple');
 var moment = require('moment');
 
-module.exports = function(configuration) {
-  let config = configuration.jwtToken;
+module.exports = function(jwtConfiguration) {
+  let config = jwtConfiguration;
 
   this.create = (userId, expiryDays) => {
     let expiryDate = moment.utc();
@@ -38,8 +38,15 @@ module.exports = function(configuration) {
 
     let jwtToken = data[1];
 
-    return jwt.decode(token, config.secretKey, false, 'HS512');
+    return this.decode(jwtToken);
   };
+
+  this.decode = (token) => {
+    if(!token) {
+      return;
+    }
+    return jwt.decode(token, config.secretKey, 'HS512');
+  }
 
   this.isValid = (token) => {
     if (!token) {

@@ -5,6 +5,6 @@ module.exports = function(io){
 
   this.publishOperationUpdated = (event) => {
     console.log(`Publishing operation_updated message, operation: ${event.name}, state: ${event.state}`);
-    this.io.sockets.emit('operation_updated', event);
+    this.io.to(event.userId).emit('operation_updated', event);
   }
 };

@@ -2,8 +2,8 @@
   "config": {
     "port": 15000,
     "jwtToken": {
-      "secretKey": "bYTJPUuMbbGxG6PTebXjph2WVL9ewsY375AVnRd33jFYdnXzyd",
-      "expiryDays": 1000000
+      "secretKey": "KsbMKTkSrGU4vgCcPkqPg4jHcy8EuLxhFZaBnhxFAX73j9ZReTtEBLcMd9gPPZYmQdVB8wvmeYeqd63X",
+      "expiryDays": 100
     },
     "rabbitMq": {
       "options" : {
