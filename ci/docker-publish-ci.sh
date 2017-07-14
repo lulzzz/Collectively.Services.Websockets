@@ -13,6 +13,6 @@ case "$TRAVIS_BRANCH" in
 esac
 
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-docker build -f Dockerfile.$DOCKER_ENV -t collectively.services.websockets:$DOCKER_TAG ./src
+docker build -f ./src/Dockerfile.$DOCKER_ENV -t collectively.services.websockets:$DOCKER_TAG ./src
 docker tag collectively.services.websockets:$DOCKER_TAG $DOCKER_USERNAME/collectively.services.websockets:$DOCKER_TAG
 docker push $DOCKER_USERNAME/collectively.services.websockets:$DOCKER_TAG
