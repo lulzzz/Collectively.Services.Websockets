@@ -9,4 +9,5 @@ case "$TRAVIS_BRANCH" in
     ;;    
 esac
 
+cd src
 npm install
