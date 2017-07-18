@@ -1,6 +1,6 @@
 {
   "config": {
-    "port": 15000,
+    "port": 9050,
     "jwtToken": {
       "secretKey": "KsbMKTkSrGU4vgCcPkqPg4jHcy8EuLxhFZaBnhxFAX73j9ZReTtEBLcMd9gPPZYmQdVB8wvmeYeqd63X",
       "expiryDays": 100
@@ -42,14 +42,14 @@
     },
     "service": {
       "title": "websockets-service",
-      "name": "localhost:15000",
+      "name": "localhost:9050",
       "username": "user",
       "password": "secret"
     },
     "services": [
       {
         "title": "remarks-service",
-        "name": "localhost:10002",
+        "name": "localhost:10003",
         "username": "user",
         "password": "secret"
       }
