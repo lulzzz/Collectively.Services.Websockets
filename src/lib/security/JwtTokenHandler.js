@@ -1,6 +1,9 @@
 //JwtTokenHandler.js
+var fs = require('fs');
 var jwt = require('jwt-simple');
 var moment = require('moment');
+const privateKey = fs.readFileSync('rsa-private-key.pem');
+const publicKey = fs.readFileSync('rsa-public-key.pem');
 
 module.exports = function(jwtConfiguration) {
   let config = jwtConfiguration;
@@ -19,8 +22,8 @@ module.exports = function(jwtConfiguration) {
       sub: userId,
       exp: dotnetTicks
     };
-
-    return jwt.encode(payload, config.secretKey, 'HS512')
+    
+    return jwt.encode(payload, privateKey, 'RS256')
   }
 
   this.getFromAuthorizationHeader = (header) => {
@@ -45,7 +48,7 @@ module.exports = function(jwtConfiguration) {
     if(!token) {
       return;
     }
-    return jwt.decode(token, config.secretKey, 'HS512');
+    return jwt.decode(token, publicKey, 'RS256');
   }
 
   this.isValid = (token) => {

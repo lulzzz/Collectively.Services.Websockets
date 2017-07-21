@@ -10,7 +10,7 @@ var RemarkMessageHandler = require('./message-handlers/RemarkMessageHandler.js')
 
 module.exports = function(configuration) {
   this.configuration = configuration;
-  var port = this.configuration.port || 15000;
+  var port = this.configuration.port || 9050;
   var rabbitMqConfig = this.configuration.rabbitMq;
 
   this.run = () => {
