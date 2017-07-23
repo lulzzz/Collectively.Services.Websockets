@@ -50,14 +50,10 @@ module.exports = function(configuration) {
       console.log('connected');
       socket.on('authenticate', (data) => {
         let token = jwtTokenHandler.decode(data.token);
-        let jwtToken = {
-          sub: token.Sub,
-          exp: token.Exp
-        };
-        if (jwtTokenHandler.isValid(jwtToken)) {
-          socket.join(jwtToken.sub);
+        if (jwtTokenHandler.isValid(token)) {
+          socket.join(token.sub);
           socket.emit('authenticated');
-          console.log(`authenticated, userId: ${jwtToken.sub}`);
+          console.log(`authenticated, userId: ${token.sub}`);
         } else {
           socket.emit('authentication_failed');
           console.log('authentication failed');

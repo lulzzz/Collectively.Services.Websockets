@@ -3,7 +3,6 @@ var fetch = require('node-fetch');
 
 module.exports = function () {
   let authenticationEndpoint = '/authenticate';
-  
 
   this.authenticateAsync = async (serviceUrl, credentials) => {
     let url = `${serviceUrl}${authenticationEndpoint}`;
