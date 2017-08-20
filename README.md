@@ -42,13 +42,13 @@ In order to run the **Collectively.Services.Websockets** you need to have instal
 - [.NET Core](https://dotnet.github.io)
 - [RabbitMQ](https://www.rabbitmq.com)
 
-Clone the repository and start the application via *dotnet run* command:
+Clone the repository and start the application via *dotnet run --no-restore* command:
 
 ```
 git clone https://github.com/noordwind/Collectively.Services.Websockets
 cd Collectively.Services.Websockets/Collectively.Services.Websockets
 dotnet restore --source https://api.nuget.org/v3/index.json --source https://www.myget.org/F/coolector/api/v3/index.json --no-cache
-dotnet run
+dotnet run --no-restore
 ```
 
 Once executed, you shall be able to access the service at [http://localhost:9050](http://localhost:9050)
@@ -69,4 +69,4 @@ For the local testing purposes the *.local* or *.docker* configuration files are
 
 **Solution structure**
 ----------------
-- **Collectively.Services.Websockets** - core and executable project via *dotnet run* command.
+- **Collectively.Services.Websockets** - core and executable project via *dotnet run --no-restore* command.

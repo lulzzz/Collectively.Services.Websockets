@@ -26,9 +26,7 @@ module.exports = function(config){
           q.bind(exchanges[subscription.exchange], subscription.routingKey);
           console.log(`Queue: ${subscription.queue} bound to exchange: ${subscription.exchange} with routingKey: ${subscription.routingKey}`);
           q.subscribe((message) => {
-            let buffer = new Buffer(message.data);
-            let string = buffer.toString('utf8');
-            let event = JSON.parse(string);
+            let event = JSON.parse(JSON.stringify(message));
             subscription.callback(event);
           });
         });

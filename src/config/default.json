@@ -2,6 +2,8 @@
   "config": {
     "port": 9050,
     "jwtToken": {
+      "secretKey": "GuNRmdKbdcp59gZa2mFL7WPXtYjabsYtYWDbNGTukzKUetsZjV6NvGqeRkUKtQtxsDGMMU3Bw9VHYCak",
+      "useRsa": false,
       "rsaPublicKey": "rsa-public-key.pem",
       "rsaUseFilePath": true
     },

@@ -5,13 +5,22 @@ var moment = require('moment');
 
 module.exports = function(jwtConfiguration) {
   let config = jwtConfiguration;
-  let publicKey = "";
-  if (config.rsaUseFilePath) {
-    publicKey = fs.readFileSync(jwtConfiguration.rsaPublicKey);
-    console.log("Public RSA key loaded from a file: " + config.rsaPublicKey);
-  } else {
-    console.log("Public RSA key loaded from Lockbox.");
-    publicKey = jwtConfiguration.rsaPublicKey;
+  let secret = "";
+  let algorithm = 'HS256';
+  if (config.useRsa)
+  {
+    algorithm = 'RS256';
+    if (config.rsaUseFilePath) {
+      secret = fs.readFileSync(jwtConfiguration.rsaPublicKey);
+      console.log("Public RSA key loaded from a file: " + config.rsaPublicKey);
+    } else {
+      console.log("Public RSA key loaded from Lockbox.");
+      secret = jwtConfiguration.rsaPublicKey;
+    }    
+  }
+  else {
+    secret = config.secretKey;
+    console.log("Loaded secret HMAC key.");
   }
 
   this.decode = (token) => {
@@ -19,7 +28,7 @@ module.exports = function(jwtConfiguration) {
       return;
     }
 
-    return jwt.decode(token, publicKey, false, 'RS256');
+    return jwt.decode(token, secret, false, algorithm);
   }
 
   this.isValid = (token) => {
