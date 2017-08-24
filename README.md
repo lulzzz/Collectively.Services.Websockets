@@ -27,10 +27,10 @@ The **Collectively.Services.Websockets** is a service responsible for pushing th
 
 Collectively is built as a set of microservices, therefore the easiest way is to run the whole system using the *docker-compose*.
 
-Clone the [Coolector.Docker](https://github.com/noordwind/Coolector.Docker) repository and run the *start.sh* script:
+Clone the [Collectively.Docker](https://github.com/noordwind/Collectively.Docker) repository and run the *start.sh* script:
 
 ```
-git clone https://github.com/noordwind/Coolector.Docker
+git clone https://github.com/noordwind/Collectively.Docker
 ./start.sh
 ```
 
@@ -39,16 +39,15 @@ For the list of available services and their endpoints [click here](https://gith
 ## Classic way
 
 In order to run the **Collectively.Services.Websockets** you need to have installed:
-- [.NET Core](https://dotnet.github.io)
-- [RabbitMQ](https://www.rabbitmq.com)
+- [Node.js](https://nodejs.org)
 
-Clone the repository and start the application via *dotnet run --no-restore* command:
+Clone the repository and run the *start.sh* script:
 
 ```
 git clone https://github.com/noordwind/Collectively.Services.Websockets
-cd Collectively.Services.Websockets/Collectively.Services.Websockets
-dotnet restore --source https://api.nuget.org/v3/index.json --source https://www.myget.org/F/coolector/api/v3/index.json --no-cache
-dotnet run --no-restore
+cd Collectively.Services.Websockets/src
+npm install
+npm start
 ```
 
 Once executed, you shall be able to access the service at [http://localhost:9050](http://localhost:9050)
@@ -58,15 +57,9 @@ Please note that the following solution will only run the Websockets Service whi
 **Configuration**
 ----------------
 
-Please edit the *appsettings.json* file in order to use the custom application settings. To configure the docker environment update the *dockerfile* - if you would like to change the exposed port, you need to also update it's value that can be found within *Program.cs*.
-For the local testing purposes the *.local* or *.docker* configuration files are being used (for both *appsettings* and *dockerfile*), so feel free to create or edit them.
+Please edit the specific *[environment].json* file that can be found under the *config* directory to use the custom application settings. To configure the docker environment update the *dockerfile* - if you would like to change the exposed port, you need to also update it's value that can be found within *start.sh*.
+For the local testing purposes the *.local* or *.docker* configuration files are being used (for both *[environment].json* and *dockerfile*), so feel free to create or edit them.
 
 **Tech stack**
 ----------------
-- **[.NET Core](https://dotnet.github.io)** - an open source & cross-platform framework for building applications using C# language.
-- **[websocket-manager](https://github.com/radu-matei/websocket-manager)** - an open source library for adding a real-time web funcionality via WebSockets.
-- **[RawRabbit](https://github.com/pardahlman/RawRabbit)** - an open source library for integration with [RabbitMQ](https://www.rabbitmq.com) service bus.
-
-**Solution structure**
-----------------
-- **Collectively.Services.Websockets** - core and executable project via *dotnet run --no-restore* command.
+- **[socket.io](https://socket.io)** - an open source & cross-platform framework for using websockets.
